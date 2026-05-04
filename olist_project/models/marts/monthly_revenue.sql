@@ -1,5 +1,5 @@
 -- Revenue trend with month-on-month growth using LAG()
--- Wolf equivalent: the monthly revenue trend for board meetings
+
 
 WITH monthly AS (
     SELECT
