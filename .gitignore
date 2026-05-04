@@ -1,0 +1,29 @@
+# Secrets — NEVER commit these
+.env
+
+# Raw CSV data — download from Kaggle (see README)
+Raw/
+
+# DuckDB binaries
+*.duckdb
+duckdb.exe
+
+# dbt build artifacts
+olist_project/target/
+olist_project/dbt_packages/
+olist_project/logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

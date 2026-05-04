@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned orders table. Cancelled orders excluded."
+    columns:
+      - name: order_id
+        description: "Primary key. One row per order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to stg_customers."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: order_status
+        description: "Current order status."
+        tests:
+          - accepted_values:
+              values: ['delivered', 'shipped', 'processing', 'invoiced', 'approved', 'unavailable', 'created']
+      - name: ordered_at
+        tests:
+          - not_null

@@ -1,0 +1,16 @@
+project_name: olist
+
+databases:
+  - name: olist_postgres
+    type: postgres
+    host: db
+    port: 5432
+    database: lightdash
+    user: "{{ env('NAO_PG_USER') }}"
+    password: "{{ env('NAO_PG_PASSWORD') }}"
+    schema_name: public
+
+llm:
+  provider: anthropic
+  api_key: "{{ env('ANTHROPIC_API_KEY') }}"
+  model: claude-sonnet-4-6

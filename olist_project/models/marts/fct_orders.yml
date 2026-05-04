@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "One row per order with revenue totals and delivery metrics."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+        meta:
+          metrics:
+            order_count:
+              type: count_distinct
+              label: "Number of Orders"
+              description: "Total distinct orders placed"
+      - name: order_revenue
+        description: "Sum of all item prices in this order. Excludes freight."
+        tests:
+          - not_null
+        meta:
+          metrics:
+            total_revenue:
+              type: sum
+              label: "Total Revenue"
+              description: "Sum of all order revenue, excluding freight"
+            avg_order_value:
+              type: average
+              label: "Average Order Value"
+      - name: freight_cost
+        meta:
+          metrics:
+            total_freight:
+              type: sum
+              label: "Total Freight Cost"
+      - name: days_to_deliver
+        meta:
+          metrics:
+            avg_delivery_days:
+              type: average
+              label: "Avg Days to Deliver"
+      - name: order_month
+        meta:
+          dimension:
+            type: date
+            label: "Order Month"
+      - name: customer_state
+        meta:
+          dimension:
+            type: string
+            label: "Customer State"
+      - name: is_late_delivery
+        meta:
+          dimension:
+            type: boolean
+            label: "Late Delivery?"

@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: rfm_segments
+    description: "RFM customer segmentation. One row per unique customer."
+    columns:
+      - name: customer_unique_id
+        meta:
+          metrics:
+            customer_count:
+              type: count_distinct
+              label: "Number of Customers"
+      - name: total_spend
+        meta:
+          metrics:
+            total_customer_spend:
+              type: sum
+              label: "Total Customer Spend"
+            avg_customer_spend:
+              type: average
+              label: "Avg Customer Spend"
+      - name: segment
+        meta:
+          dimension:
+            type: string
+            label: "RFM Segment"
+      - name: days_since_last_order
+        meta:
+          metrics:
+            avg_days_since_order:
+              type: average
+              label: "Avg Days Since Last Order"

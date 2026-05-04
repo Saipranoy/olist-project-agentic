@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: olist_orders_dataset
+        description: "One row per order. Core transactional table."
+      - name: olist_order_items_dataset
+        description: "One row per item within an order. Contains price and freight."
+      - name: olist_customers_dataset
+        description: "One row per customer. Note: customer_id is per-order, customer_unique_id is the true customer."
+      - name: olist_products_dataset
+        description: "Product catalogue with category and dimensions."
+      - name: olist_sellers_dataset
+        description: "Marketplace sellers — equivalent to Wolf sales reps."
+      - name: olist_order_reviews_dataset
+        description: "Customer reviews per order. Contains review_score 1-5."
+      - name: olist_order_payments_dataset
+        description: "Payment method and instalment info per order."

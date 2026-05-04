@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  lightdash:
+    image: lightdash/lightdash:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./:/olist
+    environment:
+      - PGHOST=db
+      - PGPORT=5432
+      - PGUSER=lightdash
+      - PGPASSWORD=lightdash
+      - PGDATABASE=lightdash
+      - LIGHTDASH_SECRET=learning-sandbox-secret
+      - SITE_URL=http://localhost:8080
+      - S3_ENDPOINT=http://minio:9000
+      - S3_REGION=us-east-1
+      - S3_ACCESS_KEY=lightdash
+      - S3_SECRET_KEY=lightdash123
+      - S3_BUCKET=lightdash-results
+      - S3_FORCE_PATH_STYLE=true
+
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    shm_size: '256mb'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: lightdash
+      POSTGRES_PASSWORD: lightdash
+      POSTGRES_DB: lightdash
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lightdash"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=lightdash
+      - MINIO_ROOT_PASSWORD=lightdash123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      mc alias set local http://minio:9000 lightdash lightdash123;
+      mc mb --ignore-existing local/lightdash-results;
+      exit 0;
+      "
+
+  nao:
+    image: getnao/nao:latest
+    ports:
+      - "5005:5005"
+    environment:
+      - BETTER_AUTH_URL=http://localhost:5005
+      - NAO_DEFAULT_PROJECT_PATH=/app/project
+      - NAO_PG_USER=${NAO_PG_USER}
+      - NAO_PG_PASSWORD=${NAO_PG_PASSWORD}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ./nao_config.yaml:/app/project/nao_config.yaml
+      - ./RULES.md:/app/project/RULES.md
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  minio_data:
