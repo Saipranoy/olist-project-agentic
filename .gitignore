@@ -1,12 +1,7 @@
-# Secrets — NEVER commit these
-.env
+
 
 # Raw CSV data — download from Kaggle (see README)
 Raw/
-
-# DuckDB binaries
-*.duckdb
-duckdb.exe
 
 # dbt build artifacts
 olist_project/target/
