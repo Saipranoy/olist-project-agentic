@@ -1,5 +1,5 @@
 -- Performance ranking per seller with late delivery rate
--- Wolf equivalent: sales rep performance dashboard
+
 
 SELECT
     s.seller_id,
