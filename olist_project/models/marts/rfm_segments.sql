@@ -1,5 +1,5 @@
 -- Score customers on Recency, Frequency, Monetary value using NTILE()
--- Wolf equivalent: account tiering model for the sales team
+
 
 WITH scores AS (
     SELECT
