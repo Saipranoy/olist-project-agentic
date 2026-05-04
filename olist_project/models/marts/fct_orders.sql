@@ -1,5 +1,5 @@
 -- One row per order, enriched with customer and financial totals
--- Wolf equivalent: one row per Cin7 sales order
+
 
 SELECT
     o.order_id,
