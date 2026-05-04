@@ -1,5 +1,5 @@
 -- One row per line item, with product and seller context
--- Wolf equivalent: Cin7 order lines joined to product catalogue
+
 
 SELECT
     i.order_id,
