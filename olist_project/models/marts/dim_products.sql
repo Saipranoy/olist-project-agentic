@@ -1,5 +1,4 @@
 -- One row per product with sales and review performance
--- Wolf equivalent: Cin7 product catalogue enriched with sales data
 
 SELECT
     p.product_id,
