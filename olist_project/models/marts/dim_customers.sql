@@ -1,5 +1,4 @@
 -- One row per unique customer with lifetime metrics
--- Wolf equivalent: one row per Cin7/Prospect CRM account
 
 SELECT
     c.customer_unique_id,
