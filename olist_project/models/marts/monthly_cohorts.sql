@@ -1,5 +1,5 @@
 -- Retention analysis by acquisition month
--- Wolf equivalent: which account cohorts are still ordering 6 months later
+
 
 WITH cohorts AS (
     SELECT
